@@ -1,12 +1,19 @@
 import tornado
 
+from pathlib import Path
 from nb.scheduler import Scheduler
 
 
 def makeapp():
+    #ToDo: Integrate subfolder support for template Rendering
+    tmp_template_path = Path().resolve() / 'basic-html-pages' / 'scheduler-background'
+    settings = dict(
+        template_path=str(tmp_template_path)
+    )
     app = tornado.web.Application([
         (r"/", Scheduler),
-    ])
+    ],
+    **settings)
     return app
 
 
